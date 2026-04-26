@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
-const STATUS_OPTS = ['huntable','breeding','quarantine','relocated','sold','deceased']
+const STATUS_OPTS = ['huntable','breeding','quarantine','relocated','sold','deceased','harvested','wounded']
 const SEX_OPTS    = ['male','female','unknown']
 
 const pillClass = s => ({
@@ -246,7 +246,4 @@ export default function Animals() {
             </form>
           </div>
         </div>
-      )}
-    </div>
-  )
-}
+    

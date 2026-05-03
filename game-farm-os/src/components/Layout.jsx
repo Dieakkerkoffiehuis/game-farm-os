@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -25,11 +26,14 @@ const NAV = [
 export default function Layout() {
   const { profile, role, signOut } = useAuth()
   const navigate = useNavigate()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   async function handleSignOut() {
     await signOut()
     navigate('/login')
   }
+
+  function closeMenu() { setMenuOpen(false) }
 
   const initials = profile?.full_name
     ? profile.full_name.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase()
@@ -37,8 +41,14 @@ export default function Layout() {
 
   return (
     <div className="app-shell">
+      {/* Mobile overlay — tap outside sidebar to close */}
+      <div
+        className={`sidebar-overlay${menuOpen ? ' open' : ''}`}
+        onClick={closeMenu}
+      />
+
       {/* Sidebar */}
-      <aside className="sidebar">
+      <aside className={`sidebar${menuOpen ? ' mobile-open' : ''}`}>
         <div className="sidebar-logo">
           <div className="sidebar-logo-title">GAME FARM OS</div>
           <div className="sidebar-logo-sub">Farm Management</div>
@@ -51,6 +61,7 @@ export default function Layout() {
               <NavLink
                 key={item.to}
                 to={item.to}
+                onClick={closeMenu}
                 className={({ isActive }) =>
                   `sidebar-item${isActive ? ' active' : ''}`
                 }
@@ -73,6 +84,10 @@ export default function Layout() {
       {/* Main */}
       <div className="main-content">
         <header className="topbar">
+          {/* Hamburger — only visible on mobile */}
+          <button className="hamburger" onClick={() => setMenuOpen(o => !o)}>
+            ☰
+          </button>
           <div className="topbar-title" id="page-title">Game Farm OS</div>
           <div className="topbar-right">
             <div className="user-chip">

@@ -275,4 +275,61 @@ export default function HuntLog() {
                   </div>
 
                   <div className="form-group">
-          
+                    <label className="form-label">Professional Hunter</label>
+                    <select className="form-select" value={form.ph_id}
+                      onChange={e => setForm(f => ({...f, ph_id: e.target.value}))}>
+                      <option value="">— Select PH —</option>
+                      {phUsers.map(u => <option key={u.id} value={u.id}>{u.full_name}</option>)}
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Tracker</label>
+                    <select className="form-select" value={form.tracker_id}
+                      onChange={e => setForm(f => ({...f, tracker_id: e.target.value}))}>
+                      <option value="">— Select tracker —</option>
+                      {trackerUsers.map(u => <option key={u.id} value={u.id}>{u.full_name}</option>)}
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Shot Distance (m)</label>
+                    <input className="form-input" type="number" min="0" value={form.shot_distance_m}
+                      onChange={e => setForm(f => ({...f, shot_distance_m: e.target.value}))} placeholder="e.g. 187" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Number of Shots</label>
+                    <input className="form-input" type="number" min="1" value={form.num_shots}
+                      onChange={e => setForm(f => ({...f, num_shots: e.target.value}))} />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Carcass Weight (kg)</label>
+                    <input className="form-input" type="number" min="0" step="0.1" value={form.carcass_weight_kg}
+                      onChange={e => setForm(f => ({...f, carcass_weight_kg: e.target.value}))} placeholder="e.g. 62.5" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Weather Conditions</label>
+                    <input className="form-input" value={form.weather}
+                      onChange={e => setForm(f => ({...f, weather: e.target.value}))} placeholder="e.g. Clear, light NE wind" />
+                  </div>
+                  <div className="form-group full">
+                    <label className="form-label">Notes</label>
+                    <textarea className="form-textarea" value={form.notes}
+                      onChange={e => setForm(f => ({...f, notes: e.target.value}))}
+                      placeholder="Hunt notes, tracking details, client comments…" />
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-ghost" onClick={() => setShowModal(false)}>Cancel</button>
+                <button type="submit" className="btn btn-primary" disabled={saving}>
+                  {saving ? 'Saving…' : 'Save Hunt Entry'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

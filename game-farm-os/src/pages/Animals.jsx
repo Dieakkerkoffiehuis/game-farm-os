@@ -246,4 +246,7 @@ export default function Animals() {
             </form>
           </div>
         </div>
-    
+      )}
+    </div>
+  )
+}
